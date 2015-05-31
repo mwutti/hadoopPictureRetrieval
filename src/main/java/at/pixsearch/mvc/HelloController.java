@@ -2,6 +2,7 @@ package at.pixsearch.mvc;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class HelloController {
 		return "hello";
 	}
 
-	@RequestMapping(value="/hadoop" , method = RequestMethod.GET)
+	@RequestMapping(value="hadoop/output" , method = RequestMethod.GET)
 	public String hadoop(ModelMap model) throws URISyntaxException, IOException {
 		String result = null;
 
@@ -42,7 +43,48 @@ public class HelloController {
 		d.close();
 		fs.close();
 
+		model.addAttribute("result", result);
+		return "hello";
+	}
 
+	@RequestMapping(value="hadoop/input" , method = RequestMethod.GET)
+	public String hadoopWrite(ModelMap model) throws URISyntaxException, IOException {
+		String result = null;
+
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get( new URI("hdfs://laptop:9000"), conf);
+
+		Path file = new Path("/user/michael/output/result.txt");
+		FSDataOutputStream out = fs.create(file);
+
+		out.write("Test".getBytes());
+		out.write(" succes".getBytes());
+
+
+		out.close();
+		fs.close();
+
+		model.addAttribute("result", "File read success");
+		return "hello";
+	}
+
+	@RequestMapping(value="hadoop/mapred" , method = RequestMethod.GET)
+	public String hadoopMapred(ModelMap model) throws URISyntaxException, IOException {
+		String result = null;
+
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get( new URI("hdfs://laptop:9000"), conf);
+
+		Path file = new Path("/user/michael/input/input1.txt");
+		FSDataInputStream getIt = fs.open(file);
+		BufferedReader d = new BufferedReader(new InputStreamReader(getIt));
+
+		String s = "";
+		while ((s = d.readLine()) != null) {
+			result += s;
+		}
+		d.close();
+		fs.close();
 
 		model.addAttribute("result", result);
 		return "hello";
