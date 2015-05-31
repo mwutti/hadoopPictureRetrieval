@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="pixsearch:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="pixsearch.war">
+      <element id="artifact" artifact-name="pixsearch:war exploded" />
+    </root>
+  </artifact>
+</component>
