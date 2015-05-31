@@ -16,4 +16,6 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
+    <bean id="hdfsService" class="at.pixsearch.mvc.service.HDFSServiceImpl"/>
+
 </beans>
