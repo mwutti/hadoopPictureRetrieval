@@ -106,9 +106,8 @@
 <div data-stellar-ratio="0.5" style="position: absolute">
     <div class="row">
         <div class="col-lg-12">
-            <h1>Full Slider by Start Bootstrap</h1>
-            <p>The background images for the slider are set directly in the HTML using inline CSS. The rest of the styles for this template are contained within the <code>full-slider.css</code>file.</p>
-        </div>
+            <h1>${result}</h1>
+            </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
