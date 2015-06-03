@@ -28,7 +28,7 @@ public class LireIndexTest {
 
     @Before
     public void cleanDirectory() throws IOException {
-        File index = new File("testindex");
+        File index = new File("src/test/index/");
 
         if(index.exists() && index.isDirectory()) {
             org.apache.commons.io.FileUtils.cleanDirectory(index);

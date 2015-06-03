@@ -8,6 +8,8 @@ import net.semanticmetadata.lire.impl.GenericFastImageSearcher;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.FSDirectory;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -20,33 +22,30 @@ import java.io.IOException;
  * Time: 12:19
  */
 public class LireSearchTest {
-    public static void main(String[] args) throws IOException {
-        // Checking if arg[0] is there and if it is an image.
-        BufferedImage img = null;
-        boolean passed = false;
-        if (args.length > 0) {
-            File f = new File(args[0]);
-            if (f.exists()) {
-                try {
-                    img = ImageIO.read(f);
-                    passed = true;
-                } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-            }
-        }
-        if (!passed) {
-            System.out.println("No image given as first argument.");
-            System.out.println("Run \"Searcher <query image>\" to search for <query image>.");
-            System.exit(1);
-        }
 
-        IndexReader ir = DirectoryReader.open(FSDirectory.open(new File("index")));
+    @Before
+    public void init() throws IOException {
+        File file = new File("src/test/index");
+
+        if (!file.exists()) {
+            LireIndexTest lireIndexTest = new LireIndexTest();
+            lireIndexTest.testCreateIndex();
+        }
+    }
+
+    @Test
+    public void findPictureTest() throws IOException {
+        BufferedImage image;
+        File file = new File("src/test/img/Hadoop_logo.jpg");
+
+        image = ImageIO.read(file);
+
+        IndexReader ir = DirectoryReader.open(FSDirectory.open(new File("src/test/index")));
         ImageSearcher searcher = new GenericFastImageSearcher(30, CEDD.class);
 //        ImageSearcher searcher = new GenericFastImageSearcher(30, AutoColorCorrelogram.class);
 
         // searching with a image file ...
-        ImageSearchHits hits = searcher.search(img, ir);
+        ImageSearchHits hits = searcher.search(image, ir);
         // searching with a Lucene document instance ...
 //        ImageSearchHits hits = searcher.search(ir.document(0), ir);
         for (int i = 0; i < hits.length(); i++) {
@@ -54,4 +53,5 @@ public class LireSearchTest {
             System.out.println(hits.score(i) + ": \t" + fileName);
         }
     }
+
 }
