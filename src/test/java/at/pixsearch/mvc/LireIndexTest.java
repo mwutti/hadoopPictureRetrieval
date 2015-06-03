@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -25,17 +26,26 @@ import org.junit.Test;
  */
 public class LireIndexTest {
 
+    @Before
+    public void cleanDirectory() throws IOException {
+        File index = new File("testindex");
+
+        if(index.exists() && index.isDirectory()) {
+            org.apache.commons.io.FileUtils.cleanDirectory(index);
+        }
+    }
+
     @Test
     public void testCreateIndex() throws IOException {
         // Getting all images from a directory and its sub directories.
-        ArrayList<String> images = FileUtils.getAllImages(new File("/Users/michael/Pictures/"), true);
+        ArrayList<String> images = FileUtils.getAllImages(new File("src/test/img/"), true);
 
         // Creating a CEDD document builder and indexing all files.
         DocumentBuilder builder = DocumentBuilderFactory.getCEDDDocumentBuilder();
         // Creating an Lucene IndexWriter
         IndexWriterConfig conf = new IndexWriterConfig(LuceneUtils.LUCENE_VERSION,
                 new WhitespaceAnalyzer(LuceneUtils.LUCENE_VERSION));
-        IndexWriter iw = new IndexWriter(FSDirectory.open(new File("index")), conf);
+        IndexWriter iw = new IndexWriter(FSDirectory.open(new File("src/test/index")), conf);
         // Iterating through images building the low level features
         for (Iterator<String> it = images.iterator(); it.hasNext(); ) {
             String imageFilePath = it.next();
