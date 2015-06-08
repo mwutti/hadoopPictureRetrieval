@@ -4,8 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -18,7 +17,7 @@ import java.net.URISyntaxException;
  */
 @Service("hdfsService")
 public class HDFSServiceImpl implements HDFSService {
-    private static final Logger logger = LoggerFactory.getLogger(HDFSServiceImpl.class);
+
     private static final String HDFS = "hdfs://localhost:9000";
 
 

@@ -14,6 +14,7 @@
     </bean>
     
     <mvc:annotation-driven/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <bean id="hdfsService" class="at.pixsearch.mvc.service.HDFSServiceImpl"/>

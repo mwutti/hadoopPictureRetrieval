@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="wordcount">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/IdeaProjects/hdfs/src/wordcount.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

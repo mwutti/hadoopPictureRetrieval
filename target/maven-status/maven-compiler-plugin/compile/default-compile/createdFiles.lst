@@ -1,0 +1,6 @@
+at/pixsearch/mapred/reducer/WordReducer.class
+at/pixsearch/mvc/service/HDFSService.class
+at/pixsearch/mvc/service/HDFSServiceImpl.class
+at/pixsearch/mapred/Count.class
+at/pixsearch/mapred/mapper/WordMapper.class
+at/pixsearch/mvc/HelloController.class
