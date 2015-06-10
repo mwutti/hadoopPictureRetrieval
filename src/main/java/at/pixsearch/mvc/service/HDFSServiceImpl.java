@@ -25,7 +25,11 @@ public class HDFSServiceImpl implements HDFSService {
 
     @Override
     public FileSystem getFileSystem() throws URISyntaxException, IOException {
-        return  FileSystem.get( new URI(HDFS), new Configuration() );
+        Configuration configuration = new Configuration();
+//        configuration.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
+//        configuration.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
+
+        return  FileSystem.get( new URI(HDFS), configuration );
 
     }
 
@@ -60,16 +64,16 @@ public class HDFSServiceImpl implements HDFSService {
         InputStream inputStream = new FileInputStream(file);
 
         Configuration conf = new Configuration();
-        FileSystem fs = FileSystem.get(new URI("hdfs://localhost:9000"), conf);
+        FileSystem fileSystem = getFileSystem();
         String filename = getFilename(file.getName());
         Path path = new Path(String.format("/user/michael/uploaded/%s", filename));
-        FSDataOutputStream out = fs.create(path);
+        FSDataOutputStream out = fileSystem.create(path);
 
         out.write(IOUtils.toByteArray(inputStream));
 
         inputStream.close();
         out.close();
-        fs.close();
+        fileSystem.close();
 
         return true;
     }

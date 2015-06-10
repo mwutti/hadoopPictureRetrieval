@@ -1,6 +1,4 @@
-/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mapred/Count.java
-/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mapred/mapper/WordMapper.java
-/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mapred/reducer/WordReducer.java
-/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mvc/HelloController.java
+/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mvc/controller/PixsearchController.java
+/Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mvc/model/UploadedFile.java
 /Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mvc/service/HDFSService.java
 /Users/michael/Development/hadoopPictureRetrieval/src/main/java/at/pixsearch/mvc/service/HDFSServiceImpl.java
