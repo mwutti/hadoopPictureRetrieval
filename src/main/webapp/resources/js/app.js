@@ -19,10 +19,8 @@ $(document).ready(function() {
 
 		url : "upload",
 		autoProcessQueue : false,
-		uploadMultiple : true,
+		uploadMultiple : false,
 		maxFilesize : 256, // MB
-		parallelUploads : 100,
-		maxFiles : 100,
 		addRemoveLinks : true,
 		previewsContainer : ".dropzone-previews",
 

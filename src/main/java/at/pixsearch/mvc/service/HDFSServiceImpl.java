@@ -1,7 +1,9 @@
 package at.pixsearch.mvc.service;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
@@ -19,8 +21,7 @@ import java.net.URISyntaxException;
 public class HDFSServiceImpl implements HDFSService {
 
     private static final String HDFS = "hdfs://localhost:9000";
-
-
+    private Integer saveHelp = 0;
 
     @Override
     public FileSystem getFileSystem() throws URISyntaxException, IOException {
@@ -54,7 +55,26 @@ public class HDFSServiceImpl implements HDFSService {
     }
 
     @Override
-    public Boolean saveFile(File file) {
-        return null;
+    public Boolean saveFile(File file) throws URISyntaxException, IOException {
+        String result = null;
+        InputStream inputStream = new FileInputStream(file);
+
+        Configuration conf = new Configuration();
+        FileSystem fs = FileSystem.get(new URI("hdfs://localhost:9000"), conf);
+        String filename = getFilename(file.getName());
+        Path path = new Path(String.format("/user/michael/uploaded/%s", filename));
+        FSDataOutputStream out = fs.create(path);
+
+        out.write(IOUtils.toByteArray(inputStream));
+
+        inputStream.close();
+        out.close();
+        fs.close();
+
+        return true;
+    }
+
+    private synchronized String getFilename(String originalFilename) {
+        return String.format("%s_%s", saveHelp++, originalFilename);
     }
 }

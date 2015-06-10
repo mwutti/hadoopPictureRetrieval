@@ -18,6 +18,6 @@ public interface HDFSService {
 
     File getFile(Path path) throws IOException, URISyntaxException;
 
-    Boolean saveFile(File file);
+    Boolean saveFile(File file) throws URISyntaxException, IOException;
 
 }
