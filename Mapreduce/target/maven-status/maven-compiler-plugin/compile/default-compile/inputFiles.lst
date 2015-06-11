@@ -1,0 +1,10 @@
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/PictureMapper.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/lire/Test.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/PictureMapReduce.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/SearchMapper.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/WholeFileRecordReader.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/Search.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/WholeFileInputFormat.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/lire/LireDistance.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/SearchReducer.java
+/Users/michael/Development/hadoopPictureRetrieval/Mapreduce/src/main/java/pixsearch/mapred/PictureReducer.java

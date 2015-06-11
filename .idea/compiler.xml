@@ -24,8 +24,16 @@
         <processorPath useClasspath="true" />
         <module name="pixsearch" />
       </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Mapreduce" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Mapreduce" target="1.5" />
       <module name="pixsearch" target="1.6" />
     </bytecodeTargetLevel>
   </component>

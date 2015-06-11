@@ -2,6 +2,7 @@ package at.pixsearch.mvc.controller;
 
 
 import at.pixsearch.mvc.model.UploadedFile;
+import net.semanticmetadata.lire.imageanalysis.CEDD;
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.fs.Path;
 
@@ -20,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -67,30 +70,31 @@ public class PixsearchController {
 		return "index";
 	}
 
-//	@RequestMapping(value = "hadoop/mapred", method = RequestMethod.GET)
-//	public String hadoopMapred(ModelMap model) throws URISyntaxException, IOException, ClassNotFoundException, InterruptedException {
-//       Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/IdeaProjects/hdfs/target/hdfs-1.0-SNAPSHOT.jar at.pixsearch.mapred.PictureMapReduce");
-//
-//        InputStream in = process.getErrorStream();
-//        IOUtils.copy(in, System.out);
-//		process.waitFor();
-//
-//		return "hello";
-//	}
+	@RequestMapping(value = "hadoop/extractFeatures", method = RequestMethod.GET)
+	public String hadoopMapred(ModelMap model) throws URISyntaxException, IOException, ClassNotFoundException, InterruptedException {
+       Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/IdeaProjects/hdfs/target/hdfs-1.0-SNAPSHOT.jar at.pixsearch.mapred.PictureMapReduce");
+
+        InputStream in = process.getErrorStream();
+        IOUtils.copy(in, System.out);
+		process.waitFor();
+
+		return "hello";
+	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public @ResponseBody
-	List<UploadedFile> upload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException {
+	public
+	String upload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, InterruptedException {
 
 		// Getting uploaded files from the request object
 		Map<String, MultipartFile> fileMap = request.getFileMap();
 
 		// Maintain a list to send back the files info. to the client side
 		List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
-
+		File toSave = null;
 		// Iterate through the map
 		for (MultipartFile multipartFile : fileMap.values()) {
-			File toSave = new File(multipartFile.getOriginalFilename());
+
+			toSave = new File(multipartFile.getOriginalFilename());
 			multipartFile.transferTo(toSave);
 
 			hdfsService.saveFile(toSave);
@@ -101,8 +105,21 @@ public class PixsearchController {
 			uploadedFiles.add(fileInfo);
 		}
 
+		BufferedImage image = ImageIO.read(toSave);
 
-		return uploadedFiles;
+
+
+		CEDD feature = new CEDD();
+		feature.extract(image);
+		String featureString = "cedd " + feature.getStringRepresentation().substring(9);
+
+		Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/IdeaProjects/hdfs/target/hdfs-1.0-SNAPSHOT.jar at.pixsearch.mapred.Search " + featureString);
+
+		InputStream in = process.getErrorStream();
+		IOUtils.copy(in, System.out);
+		process.waitFor();
+
+		return "result";
 	}
 
 	private UploadedFile getUploadedFileInfo(MultipartFile multipartFile) throws IOException {

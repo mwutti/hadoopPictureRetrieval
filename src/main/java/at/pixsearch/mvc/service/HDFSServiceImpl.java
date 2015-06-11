@@ -60,10 +60,8 @@ public class HDFSServiceImpl implements HDFSService {
 
     @Override
     public Boolean saveFile(File file) throws URISyntaxException, IOException {
-        String result = null;
         InputStream inputStream = new FileInputStream(file);
 
-        Configuration conf = new Configuration();
         FileSystem fileSystem = getFileSystem();
         String filename = getFilename(file.getName());
         Path path = new Path(String.format("/user/michael/uploaded/%s", filename));

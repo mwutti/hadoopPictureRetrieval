@@ -1,0 +1,10 @@
+pixsearch/mapred/WholeFileInputFormat.class
+pixsearch/lire/Test.class
+pixsearch/mapred/SearchReducer.class
+pixsearch/mapred/Search.class
+pixsearch/mapred/PictureReducer.class
+pixsearch/lire/LireDistance.class
+pixsearch/mapred/PictureMapReduce.class
+pixsearch/mapred/PictureMapper.class
+pixsearch/mapred/WholeFileRecordReader.class
+pixsearch/mapred/SearchMapper.class
