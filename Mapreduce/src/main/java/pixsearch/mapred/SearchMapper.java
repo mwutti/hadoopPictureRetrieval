@@ -20,7 +20,6 @@ public class SearchMapper extends Mapper<LongWritable, Text, FloatWritable, Text
 
         String queryFeature = "cedd " + context.getConfiguration().get("featureVektor");
         String[] splitLine = value.toString().split("\t");
-
         queryCEDD.setStringRepresentation(queryFeature);
 
         targetCEDD.setStringRepresentation("cedd " + splitLine[1]);

@@ -35,7 +35,7 @@ public class Search {
         job.setOutputValueClass(Text.class);
 
 
-        FileInputFormat.addInputPath(job, new Path("/user/michael/output"));
+        FileInputFormat.addInputPath(job, new Path("/features/part-r-00000"));
         FileOutputFormat.setOutputPath(job, new Path("/user/michael/output/search"));
         System.exit(job.waitForCompletion(true)?0:1);
     }

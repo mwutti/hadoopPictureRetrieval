@@ -37,8 +37,8 @@ public class PictureMapReduce {
         job.setOutputValueClass(Text.class);
 
 
-        FileInputFormat.addInputPath(job, new Path("/images/1000/"));
-        FileOutputFormat.setOutputPath(job, new Path("/user/michael/output/klo"));
+        FileInputFormat.addInputPath(job, new Path("/images"));
+        FileOutputFormat.setOutputPath(job, new Path("/features"));
         System.exit(job.waitForCompletion(true)?0:1);    
     }
 
