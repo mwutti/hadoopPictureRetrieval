@@ -5,8 +5,10 @@ import org.apache.hadoop.fs.Path;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by michael wutti on 31.05.15.
@@ -20,4 +22,7 @@ public interface HDFSService {
 
     Boolean saveFile(File file) throws URISyntaxException, IOException;
 
+    Boolean deleteFile(Path path) throws URISyntaxException, IOException;
+
+    List<String> mostSimilar(Path path) throws IOException, URISyntaxException;
 }

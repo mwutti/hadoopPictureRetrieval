@@ -82,9 +82,9 @@ public class PixsearchController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public
-	String upload(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, InterruptedException {
 
+	 public String upload(ModelMap model, MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, InterruptedException {
+		//TODO refactor Image upload
 		// Getting uploaded files from the request object
 		Map<String, MultipartFile> fileMap = request.getFileMap();
 
@@ -105,20 +105,29 @@ public class PixsearchController {
 			uploadedFiles.add(fileInfo);
 		}
 
+		//Query feature and Mapreduce for Searching
 		BufferedImage image = ImageIO.read(toSave);
-
-
 
 		CEDD feature = new CEDD();
 		feature.extract(image);
-		String featureString = "cedd " + feature.getStringRepresentation().substring(9);
+		String featureString = feature.getStringRepresentation().substring(9);
 
-		Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/IdeaProjects/hdfs/target/hdfs-1.0-SNAPSHOT.jar at.pixsearch.mapred.Search " + featureString);
+		//TODO Create ID to identify the output of the MAPRED Job to retrieve the result
+
+		//If outputFile exists delete
+		hdfsService.deleteFile(new Path("/user/michael/output/search"));
+		String processCommand[] = new String[]{"hadoop", "jar", "/Users/michael/Development/hadoopPictureRetrieval/" +
+				"Mapreduce/target/Mapreduce-1.0-SNAPSHOT.jar", "pixsearch.mapred.Search", featureString};
+		Process process = Runtime.getRuntime().exec(processCommand);
 
 		InputStream in = process.getErrorStream();
 		IOUtils.copy(in, System.out);
 		process.waitFor();
 
+		//Load Result
+
+		List<String> mostSimiliar = hdfsService.mostSimilar((new Path("/user/michael/output/search/part-r-00000")));
+		model.addAttribute("mostSimilar", mostSimiliar);
 		return "result";
 	}
 

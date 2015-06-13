@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,7 +31,7 @@ public class HDFSServiceImpl implements HDFSService {
 //        configuration.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
 //        configuration.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
 
-        return  FileSystem.get( new URI(HDFS), configuration );
+        return FileSystem.get(new URI(HDFS), configuration);
 
     }
 
@@ -38,7 +40,7 @@ public class HDFSServiceImpl implements HDFSService {
         FileSystem fileSystem = getFileSystem();
 
         File result = File.createTempFile("tmp", Long.toString(System.nanoTime()));
-        if(fileSystem.exists(path)) {
+        if (fileSystem.exists(path)) {
 
             FSDataInputStream inputStream = fileSystem.open(path);
             OutputStream outputStream = new FileOutputStream(result);
@@ -46,10 +48,10 @@ public class HDFSServiceImpl implements HDFSService {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
             String line = "";
             //logger.info("Reading from HDFS:");
-            while ( (line = reader.readLine()) != null ) {
+            while ((line = reader.readLine()) != null) {
 
                 writer.write(line);
-               //logger.info(line);
+                //logger.info(line);
             }
             reader.close();
             writer.close();
@@ -57,6 +59,7 @@ public class HDFSServiceImpl implements HDFSService {
         }
         return result;
     }
+
 
     @Override
     public Boolean saveFile(File file) throws URISyntaxException, IOException {
@@ -74,6 +77,27 @@ public class HDFSServiceImpl implements HDFSService {
         fileSystem.close();
 
         return true;
+    }
+
+    @Override
+    public Boolean deleteFile(Path path) throws URISyntaxException, IOException {
+        FileSystem fileSystem = getFileSystem();
+        return fileSystem.delete(path, true);
+    }
+
+    @Override
+    public List<String> mostSimilar(Path path) throws IOException, URISyntaxException {
+        List<String> result = new ArrayList<String>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getFileSystem().open(path)));
+        String line = reader.readLine();
+        int i = 0;
+        while (line != null && i < 10) {
+            i++;
+            result.add(line.split("\t")[1]);
+            line = reader.readLine();
+        }
+
+        return result;
     }
 
     private synchronized String getFilename(String originalFilename) {
