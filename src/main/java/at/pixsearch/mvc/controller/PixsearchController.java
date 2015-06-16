@@ -16,13 +16,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,29 +86,12 @@ public class PixsearchController {
 		return "hello";
 	}
 
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "upload", method = RequestMethod.POST)
+	 public String upload(@RequestParam("file") MultipartFile file, ModelMap model) throws IOException, URISyntaxException, InterruptedException {
 
-	 public String upload(ModelMap model, MultipartHttpServletRequest request, HttpServletResponse response) throws IOException, URISyntaxException, InterruptedException {
-		//TODO refactor Image upload
-		// Getting uploaded files from the request object
-		Map<String, MultipartFile> fileMap = request.getFileMap();
 
-		// Maintain a list to send back the files info. to the client side
-		List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
-		File toSave = null;
-		// Iterate through the map
-		for (MultipartFile multipartFile : fileMap.values()) {
-
-			toSave = new File(multipartFile.getOriginalFilename());
-			multipartFile.transferTo(toSave);
-
-			hdfsService.saveFile(toSave);
-
-			UploadedFile fileInfo = getUploadedFileInfo(multipartFile);
-
-			// adding the file info to the list
-			uploadedFiles.add(fileInfo);
-		}
+		File toSave = new File(file.getOriginalFilename());
+		file.transferTo(toSave);
 
 		//Query feature and Mapreduce for Searching
 		BufferedImage image = ImageIO.read(toSave);
@@ -129,6 +117,7 @@ public class PixsearchController {
 		List<String> mostSimiliar = hdfsService.mostSimilar((new Path("/user/michael/output/search/part-r-00000")));
 		model.addAttribute("mostSimilar", mostSimiliar);
 		return "result";
+
 	}
 
 	private UploadedFile getUploadedFileInfo(MultipartFile multipartFile) throws IOException {

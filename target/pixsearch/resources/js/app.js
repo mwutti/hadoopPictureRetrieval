@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 		// The setting up of the dropzone
 		init : function() {
-
+			console.log("init");
 			var myDropzone = this;
 
 			// first set autoProcessQueue = false
@@ -46,7 +46,8 @@ $(document).ready(function() {
 
 			// displaying the uploaded files information in a Bootstrap dialog
 			this.on("successmultiple", function(files, serverResponse) {
-				showInformationDialog(files, serverResponse);
+				//showInformationDialog(files, serverResponse);
+				console.log("Success");
 			});
 		}
 	}

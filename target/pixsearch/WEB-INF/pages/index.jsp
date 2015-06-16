@@ -21,33 +21,12 @@
 </head>
 
 <body>
-<body>
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading text-center">
-            <h3>PiXSearch</h3>
-        </div>
-        <div class="panel-body">
-            <div>
-                <form id="dropzone-form" class="dropzone" enctype="multipart/form-data">
-                    <div class="dz-default dz-message file-dropzone text-center well col-sm-12">
 
-                        <span class="glyphicon glyphicon-paperclip"></span> <span>
-								To attach files, drag and drop here</span><br> <span>OR</span><br>
-                        <span>Just Click</span>
-                    </div>
+<form action="<c:url value="/upload"/>" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data" method="post">
+    <input type="file" name="file" />
+    <input type="submit" class="btn btn-primary">upload</input>
+</form>
 
-                    <!-- this is were the previews should be shown. -->
-                    <div class="dropzone-previews"></div>
-                </form>
-                <hr>
-                <button id="upload-button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-upload"></span> Upload
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 </body>

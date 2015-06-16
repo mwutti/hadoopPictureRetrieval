@@ -7,12 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="mostSimilar" type="java.util.List<java.lang.String>" scope="request"/>
 <html>
 <head>
     <title>result</title>
 </head>
 <body>
+<div id="results">
 
+    <c:forEach items="${mostSimilar}" var="similar" varStatus="i">
+        <div>${i}:${similar}</div>
+    </c:forEach>
+
+</div>
 
 </body>
 </html>
