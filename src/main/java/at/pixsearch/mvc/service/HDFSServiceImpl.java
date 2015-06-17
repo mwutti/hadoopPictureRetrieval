@@ -9,6 +9,8 @@ import org.apache.hadoop.fs.Path;
 
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,15 +30,12 @@ public class HDFSServiceImpl implements HDFSService {
     @Override
     public FileSystem getFileSystem() throws URISyntaxException, IOException {
         Configuration configuration = new Configuration();
-//        configuration.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
-//        configuration.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
 
         return FileSystem.get(new URI(HDFS), configuration);
-
     }
 
     @Override
-    public File getFile(Path path) throws IOException, URISyntaxException {
+    public File getTextFile(Path path) throws IOException, URISyntaxException {
         FileSystem fileSystem = getFileSystem();
 
         File result = File.createTempFile("tmp", Long.toString(System.nanoTime()));
@@ -60,6 +59,22 @@ public class HDFSServiceImpl implements HDFSService {
         return result;
     }
 
+    @Override
+    public BufferedImage getImage(Path path) throws IOException, URISyntaxException {
+        FileSystem fileSystem = getFileSystem();
+
+        File result = File.createTempFile("tmp", Long.toString(System.nanoTime()));
+
+        if (fileSystem.exists(path)) {
+
+            FSDataInputStream inputStream = fileSystem.open(path);
+            OutputStream outputStream = new FileOutputStream(result);
+
+            IOUtils.copy(inputStream, outputStream);
+        }
+
+        return ImageIO.read(result);
+    }
 
     @Override
     public Boolean saveFile(File file) throws URISyntaxException, IOException {
@@ -93,6 +108,7 @@ public class HDFSServiceImpl implements HDFSService {
         int i = 0;
         while (line != null && i < 10) {
             i++;
+            //TODO validate uploaded File name must not contain tilde
             result.add(line.split("\t")[1]);
             line = reader.readLine();
         }

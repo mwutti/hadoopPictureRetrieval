@@ -16,7 +16,7 @@
 <div id="results">
 
     <c:forEach items="${mostSimilar}" var="similar" varStatus="i">
-        <div>${i}:${similar}</div>
+        <img src="<c:url value="/getFile/?src=${similar}"/>"/>
     </c:forEach>
 
 </div>

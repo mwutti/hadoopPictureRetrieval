@@ -1,44 +1,29 @@
 package at.pixsearch.mvc.controller;
 
-
-import at.pixsearch.mvc.model.UploadedFile;
 import net.semanticmetadata.lire.imageanalysis.CEDD;
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.fs.Path;
-
 import at.pixsearch.mvc.service.HDFSService;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/")
@@ -54,7 +39,7 @@ public class PixsearchController {
 
 	@RequestMapping(value = "hadoop/output", method = RequestMethod.GET)
 	public String hadoop(ModelMap model) throws URISyntaxException, IOException {
-		File result = hdfsService.getFile(new Path("/user/michael/input/input1.txt"));
+		File result = hdfsService.getTextFile(new Path("/user/michael/input/input1.txt"));
 
 		model.addAttribute("result", "success");
 		return "index";
@@ -120,16 +105,16 @@ public class PixsearchController {
 
 	}
 
-	private UploadedFile getUploadedFileInfo(MultipartFile multipartFile) throws IOException {
+	@RequestMapping(value="getFile/", method = RequestMethod.GET)
+	@ResponseBody
+	public void getFile(@RequestParam("src") String src,  HttpServletResponse response) throws IOException, URISyntaxException {
 
-		UploadedFile fileInfo = new UploadedFile();
-		fileInfo.setName(multipartFile.getOriginalFilename());
-		fileInfo.setSize(multipartFile.getSize());
-		fileInfo.setType(multipartFile.getContentType());
-		fileInfo.setLocation("Test");
-
-		return fileInfo;
+		Path pathToFile = new Path(String.format("/images/%s", src.replaceAll("~", "/")));
+		response.setContentType("image/png");
+		BufferedImage image = hdfsService.getImage(pathToFile);
+		OutputStream outputStream = response.getOutputStream();
+		ImageIO.write(image, "png", outputStream);
+		outputStream.close();
 	}
-
 
 }
