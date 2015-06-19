@@ -47,7 +47,8 @@ public class PixsearchController {
 	}
 
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
-	 public String upload(@RequestParam("file") MultipartFile file, ModelMap model) throws IOException, URISyntaxException, InterruptedException {
+	@ResponseBody
+	 public List<String> upload(@RequestParam("file") MultipartFile file, ModelMap model) throws IOException, URISyntaxException, InterruptedException {
 		BufferedImage queryImage = utilService.wrap(file);
 
 		String featureString = lireService.getCEDDString(queryImage);
@@ -60,8 +61,8 @@ public class PixsearchController {
 
 		List<String> mostSimiliar = hdfsService.mostSimilar((new Path("/user/michael/output/search/part-r-00000")));
 
-		model.addAttribute("mostSimilar", mostSimiliar);
-		return "result";
+//		model.addAttribute("mostSimilar", mostSimiliar);
+		return mostSimiliar;
 	}
 
 	@RequestMapping(value="getFile/", method = RequestMethod.GET)

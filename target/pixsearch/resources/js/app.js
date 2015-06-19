@@ -15,23 +15,38 @@ $(document).ready(function() {
 	}
 
 	// "dropzoneForm" is the camel-case version of the form id "dropzone-form"
-	Dropzone.options.dropzoneForm = {
+	Dropzone.options.imageUpload = {
 
 		url : "upload",
 		autoProcessQueue : false,
 		uploadMultiple : false,
 		maxFilesize : 256, // MB
 		addRemoveLinks : true,
+
+		success : function(response, mostSimilar) {
+			var result=$('#result');
+
+			for(i = 0 ; i < mostSimilar.length; i++ ) {
+				result.append("<img id=\"img"+ i +"\">");
+				$('#img' + i).attr("src", "/getFile/?src=" + mostSimilar[i]);
+			}
+
+
+			//mostSimilar.forEach(function(status) {
+			//	console.log(status);
+			//});
+
+
+		},
+
 		previewsContainer : ".dropzone-previews",
 
 		// The setting up of the dropzone
 		init : function() {
-			console.log("init");
 			var myDropzone = this;
 
 			// first set autoProcessQueue = false
 			$('#upload-button').on("click", function(e) {
-
 				myDropzone.processQueue();
 			});
 
@@ -43,36 +58,7 @@ $(document).ready(function() {
 				var progressBar = file.previewElement.getElementsByClassName("dz-upload")[0];
 				progressBar.innerHTML = progress + "%";
 			});
-
-			// displaying the uploaded files information in a Bootstrap dialog
-			this.on("successmultiple", function(files, serverResponse) {
-				//showInformationDialog(files, serverResponse);
-				console.log("Success");
-			});
 		}
-	}
-
-	function showInformationDialog(files, objectArray) {
-
-		var responseContent = "";
-
-		for (var i = 0; i < objectArray.length; i++) {
-
-			var infoObject = objectArray[i];
-
-			for ( var infoKey in infoObject) {
-				if (infoObject.hasOwnProperty(infoKey)) {
-					responseContent = responseContent + " " + infoKey + " -> " + infoObject[infoKey] + "<br>";
-				}
-			}
-			responseContent = responseContent + "<hr>";
-		}
-
-		// from the library bootstrap-dialog.min.js
-		BootstrapDialog.show({
-			title : '<b>Server Response</b>',
-			message : responseContent
-		});
-	}
+	};
 
 });
