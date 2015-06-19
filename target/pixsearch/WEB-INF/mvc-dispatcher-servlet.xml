@@ -3,8 +3,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="at.pixsearch.mvc"/>
 
@@ -14,13 +14,19 @@
     </bean>
     
     <mvc:annotation-driven/>
+
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- setting maximum upload size -->
-        <property name="maxUploadSize" value="1000000" />
+        <!-- setting maximum upload size to 2.5MB-->
+        <property name="maxUploadSize" value="2500000" />
     </bean>
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
+    <!--Services-->
     <bean id="hdfsService" class="at.pixsearch.mvc.service.HDFSServiceImpl"/>
+    <bean id="lireService" class="at.pixsearch.mvc.service.LireServiceImpl"/>
+    <bean id="utilService" class="at.pixsearch.mvc.service.UtilServiceImpl"/>
+    <bean id="MapReduceService" class="at.pixsearch.mvc.service.MapReduceServiceImpl"/>
+
 
 </beans>

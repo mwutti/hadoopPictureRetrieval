@@ -6,7 +6,6 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -61,6 +60,7 @@ public class HDFSServiceImpl implements HDFSService {
 
     @Override
     public BufferedImage getImage(Path path) throws IOException, URISyntaxException {
+        //TODO care about filesystem.close()
         FileSystem fileSystem = getFileSystem();
 
         File result = File.createTempFile("tmp", Long.toString(System.nanoTime()));
