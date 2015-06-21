@@ -17,21 +17,47 @@
     <link rel="stylesheet" href="<c:url value="/resources/libs/dropzone/dropzone.css"/>"/>
     <%--Superslides--%>
     <link rel="stylesheet" href="<c:url value="/resources/css/superslides.css"/>"/>
+    <style type="text/css">
+        #bg-image-landing {
+            position: relative;
+            z-index: -1;
+            margin-top: 0;
+            height: 100%;
+        }
+
+        #pixsearch-logo{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #pixsearch-arrow {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="start" class="wrapper">
+        <img id="bg-image-landing" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
+        <img id="pixsearch-logo" src="<c:url value="/resources/img/index/Startseite_Logo.png"/>"/>
+        <img id="pixsearch-arrow" src="<c:url value="/resources/img/index/Startseite_Pfeil.png"/>"/>
 
-    <form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">
-        <div class="dz-default dz-message file-dropzone text-center well col-sm-12">
-            <span class="glyphicon glyphicon-paperclip"></span>
-            <span>To attach files, drag and drop here
-              <div class="dropzone-previews"></div>
-            </span><br>
-            <span>OR</span><br>
-            <span>Just Click</span>
-        </div>
-    </form>
 
+        <%--<form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">--%>
+            <%--<div class="dz-default dz-message file-dropzone text-center well col-sm-12">--%>
+                <%--<span class="glyphicon glyphicon-paperclip"></span>--%>
+            <%--<span>To attach files, drag and drop here--%>
+              <%--<div class="dropzone-previews"></div>--%>
+            <%--</span><br>--%>
+                <%--<span>OR</span><br>--%>
+                <%--<span>Just Click</span>--%>
+            <%--</div>--%>
+        <%--</form>--%>
+    </>
     <div id="slides">
         <div class="slides-container">
             <img src="<c:url value="/resources/img/slider/Seite2_BG.png"/>"/>
