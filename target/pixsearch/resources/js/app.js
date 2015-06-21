@@ -35,8 +35,6 @@ $(document).ready(function() {
 			//mostSimilar.forEach(function(status) {
 			//	console.log(status);
 			//});
-
-
 		},
 
 		previewsContainer : ".dropzone-previews",

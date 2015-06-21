@@ -54,12 +54,15 @@
             transform: translate(-50%, -50%);
         }
 
-        #pixsearch-dropzone-go {
+        #upload-button {
             position: absolute;
             top: 70%;
             left: 50%;
             z-index:2;
             transform: translate(-50%, -50%);
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
     </style>
 </head>
@@ -80,17 +83,17 @@
             <img src="<c:url value="/resources/img/slider/Seite2_BG5.png"/>"/>
             <img src="<c:url value="/resources/img/slider/Seite2_BG6.png"/>"/>
         </div>
+
         <img id="pixsearch-logo-upload" src="<c:url value="/resources/img/upload/Seite2_Logo.png"/>">
         <img id="pixsearch-dropzone" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
-        <img id="pixsearch-dropzone-go" src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
-
+        <button id="upload-button">
+            <span>
+                <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
+            </span>
+        </button>
     </div>
 
-    <%--<button id="upload-button" class="btn btn-primary">--%>
-        <%--<span class="glyphicon glyphicon-upload">--%>
-            <%--Upload--%>
-        <%--</span>--%>
-    <%--</button>--%>
+
 
     <%--<div id ="result"/>--%>
 </body>
