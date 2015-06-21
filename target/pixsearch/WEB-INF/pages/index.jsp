@@ -46,12 +46,21 @@
             transform: translate(-50%, -50%);
         }
 
-        #pixsearch-dropzone {
+        #image-upload {
             position: absolute;
             top: 50%;
             left: 50%;
             z-index:2;
             transform: translate(-50%, -50%);
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        #costum-dropzone {
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
 
         #upload-button {
@@ -64,6 +73,7 @@
             border: none;
             outline: none;
         }
+
     </style>
 </head>
 
@@ -85,17 +95,30 @@
         </div>
 
         <img id="pixsearch-logo-upload" src="<c:url value="/resources/img/upload/Seite2_Logo.png"/>">
-        <img id="pixsearch-dropzone" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
+        <form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">
+            <div class="dz-default dz-message file-dropzone text-center well col-sm-12"id="costum-dropzone" >
+                <img id="pixsearch-image-upload" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
+                <div class="dropzone-previews"></div>
+            </div>
+        </form>
+        <%--<form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">--%>
+
+            <%--<div class="dz-default dz-message file-dropzone text-center well col-sm-12"/>--%>
+        <%--</form>--%>
+
         <button id="upload-button">
             <span>
                 <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
+
             </span>
         </button>
     </div>
 
 
 
-    <%--<div id ="result"/>--%>
+
+
+    <div id ="result"/>
 </body>
 
 <!-- jQuery -->
