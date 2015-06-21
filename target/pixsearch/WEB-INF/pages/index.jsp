@@ -36,6 +36,9 @@
             position: absolute;
             top: 90%;
             left: 50%;
+            background-color: transparent;
+            border: none;
+            outline: none;
         }
 
         #pixsearch-logo-upload {
@@ -81,7 +84,9 @@
     <div id="start">
         <img id="bg-image-landing" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
         <img id="pixsearch-logo" src="<c:url value="/resources/img/index/Startseite_Logo.png"/>"/>
-        <img id="pixsearch-arrow" src="<c:url value="/resources/img/index/Startseite_Pfeil.png"/>"/>
+        <button id="pixsearch-arrow">
+            <img src="<c:url value="/resources/img/index/Startseite_Pfeil.png"/>" />
+        </button>
     </div>
 
     <div id="slides">
@@ -96,31 +101,21 @@
 
         <img id="pixsearch-logo-upload" src="<c:url value="/resources/img/upload/Seite2_Logo.png"/>">
         <form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">
-            <div class="dz-default dz-message file-dropzone text-center well col-sm-12"id="costum-dropzone" >
+            <div class="dz-default dz-message file-dropzone text-center well col-sm-12" id="costum-dropzone" >
                 <img id="pixsearch-image-upload" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
                 <div class="dropzone-previews"></div>
             </div>
         </form>
-        <%--<form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">--%>
-
-            <%--<div class="dz-default dz-message file-dropzone text-center well col-sm-12"/>--%>
-        <%--</form>--%>
 
         <button id="upload-button">
             <span>
                 <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
-
             </span>
         </button>
     </div>
 
-
-
-
-
     <div id ="result"/>
 </body>
-
 <!-- jQuery -->
 <script src="<c:url value="/resources/libs/jquery/jquery.js"/>"></script>
 <script src="<c:url value="/resources/libs/jquery/jquery.animate-enhanced.min.js"/>"></script>
@@ -140,5 +135,12 @@
         animation: 'fade',
         play: 8000
     });
+
+   $('#pixsearch-arrow').on("click", function() {
+       console.log("slide");
+        $('html, body').animate({
+            scrollTop: $('#slides').offset().top
+        }, 1000);
+   });
 </script>
 </html>

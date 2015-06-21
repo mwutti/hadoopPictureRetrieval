@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	$(".file-dropzone").on('dragover', handleDragEnter);
 	$(".file-dropzone").on('dragleave', handleDragLeave);
 	$(".file-dropzone").on('drop', handleDragLeave);
