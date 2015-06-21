@@ -37,27 +37,40 @@
             top: 90%;
             left: 50%;
         }
+
+        #pixsearch-logo-upload {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            z-index:2;
+            transform: translate(-50%, -50%);
+        }
+
+        #pixsearch-dropzone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index:2;
+            transform: translate(-50%, -50%);
+        }
+
+        #pixsearch-dropzone-go {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            z-index:2;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 
 <body>
-    <div id="start" class="wrapper">
+    <div id="start">
         <img id="bg-image-landing" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
         <img id="pixsearch-logo" src="<c:url value="/resources/img/index/Startseite_Logo.png"/>"/>
         <img id="pixsearch-arrow" src="<c:url value="/resources/img/index/Startseite_Pfeil.png"/>"/>
+    </div>
 
-
-        <%--<form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">--%>
-            <%--<div class="dz-default dz-message file-dropzone text-center well col-sm-12">--%>
-                <%--<span class="glyphicon glyphicon-paperclip"></span>--%>
-            <%--<span>To attach files, drag and drop here--%>
-              <%--<div class="dropzone-previews"></div>--%>
-            <%--</span><br>--%>
-                <%--<span>OR</span><br>--%>
-                <%--<span>Just Click</span>--%>
-            <%--</div>--%>
-        <%--</form>--%>
-    </>
     <div id="slides">
         <div class="slides-container">
             <img src="<c:url value="/resources/img/slider/Seite2_BG.png"/>"/>
@@ -67,6 +80,10 @@
             <img src="<c:url value="/resources/img/slider/Seite2_BG5.png"/>"/>
             <img src="<c:url value="/resources/img/slider/Seite2_BG6.png"/>"/>
         </div>
+        <img id="pixsearch-logo-upload" src="<c:url value="/resources/img/upload/Seite2_Logo.png"/>">
+        <img id="pixsearch-dropzone" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
+        <img id="pixsearch-dropzone-go" src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
+
     </div>
 
     <%--<button id="upload-button" class="btn btn-primary">--%>
