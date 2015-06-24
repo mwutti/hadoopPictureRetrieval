@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +32,10 @@
             margin-top: 0;
             height: 100%;
             width:100%;
+        }
+
+        #result{
+
         }
 
         #pixsearch-logo{
@@ -87,10 +91,23 @@
             transform: translate(-50%, -50%);
         }
 
+        .similar {
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .similar-header {
+            position: relative;
+            margin: 0;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            color: white;
+        }
     </style>
 </head>
 
-<body>
+<div>
     <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -140,38 +157,77 @@
             </div>
         </form>
 
-        <button id="upload-button" class="transparent-no-border">
+        <button type="button" data-toggle="modal" data-target="#resultModal" id="upload-button" class="transparent-no-border">
             <span>
                 <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
             </span>
         </button>
     </div>
 
-    <div id="result">
+    <div id="result" class="hidden">
         <img id="bg-image-result" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6" id="most-similar-0"></div>
-                <div class="col-xs-6">
-                        <div class="row">
-                            <div class="col-xs-4">small</div>
-                            <div class="col-xs-4">small</div>
-                            <div class="col-xs-4">small</div>
-                        </div>
-                    <div class="row">
-                        <div class="col-xs-4">small</div>
-                        <div class="col-xs-4">small</div>
-                        <div class="col-xs-4">small</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">small</div>
-                        <div class="col-xs-4">small</div>
-                        <div class="col-xs-4">small</div>
+        <h1 class="similar-header text-center">Most similar images</h1>
+
+        <div id="carousel-result" class="carousel slide" data-interfal="false">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-result" data-slide-to="0" class="active"></li>
+                <c:forEach begin="1" end="9" varStatus="i">
+                    <li data-target="#carousel-result" data-slide-to="${i.index}"></li>
+                </c:forEach>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="similar" id="most-similar-0">
+                    <div class="carousel-caption">
+                        #1 similar
                     </div>
                 </div>
-           </div>
+                <c:forEach begin="1" end="9" varStatus="i">
+                    <div class="item">
+                        <img class="similar" id="most-similar-${i.index}">
+                        <div class="carousel-caption">
+                             #${i.index +1} similar
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-result" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-result" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+
     </div>
+
+    <%--<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--%>
+        <%--<div class="modal-dialog" role="document">--%>
+            <%--<div class="modal-content">--%>
+                <%--<div class="modal-header">--%>
+                    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
+                    <%--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--%>
+                <%--</div>--%>
+               <%--<div class="modal-body">--%>
+
+               <%--</div>--%>
+
+                <%--<div class="modal-footer">--%>
+                    <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+                    <%--<button type="button" class="btn btn-primary">Save changes</button>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    </div>
+
 </body>
 <!-- jQuery -->
 <script src="<c:url value="/resources/libs/jquery/jquery.js"/>"></script>

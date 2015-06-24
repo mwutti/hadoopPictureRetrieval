@@ -21,12 +21,22 @@ $(document).ready(function() {
 		addRemoveLinks : true,
 
 		success : function(response, mostSimilar) {
-			var result=$('#result');
 
 			for(i = 0 ; i < mostSimilar.length; i++ ) {
-				result.append("<img id=\"img"+ i +"\">");
-				$('#img' + i).attr("src", "/getFile/?src=" + mostSimilar[i]);
+				result = $('#most-similar-' + i);
+				result.attr("src", "/getFile/?src=" + mostSimilar[i]);
 			}
+
+			$("#result").removeClass("hidden");
+
+			$('html, body').animate({
+				scrollTop: $("#result").offset().top
+			}, 800, function(){
+
+				// when done, add hash to url
+				// (default click behaviour)
+				window.location.hash = "#result";
+			});
 		},
 
 		previewsContainer : ".dropzone-previews",
