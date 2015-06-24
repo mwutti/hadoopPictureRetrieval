@@ -23,6 +23,15 @@
             z-index: -1;
             margin-top: 0;
             height: 100%;
+            width:100%;
+        }
+
+        #bg-image-result {
+            position: absolute;
+            z-index: -1;
+            margin-top: 0;
+            height: 100%;
+            width:100%;
         }
 
         #pixsearch-logo{
@@ -36,9 +45,16 @@
             position: absolute;
             top: 90%;
             left: 50%;
+        }
+
+        .transparent-no-border {
             background-color: transparent;
             border: none;
             outline: none;
+        }
+
+        #navbar-logo {
+            margin-top: 5px;
         }
 
         #pixsearch-logo-upload {
@@ -55,9 +71,6 @@
             left: 50%;
             z-index:2;
             transform: translate(-50%, -50%);
-            background-color: transparent;
-            border: none;
-            outline: none;
         }
 
         #costum-dropzone {
@@ -72,21 +85,41 @@
             left: 50%;
             z-index:2;
             transform: translate(-50%, -50%);
-            background-color: transparent;
-            border: none;
-            outline: none;
         }
 
     </style>
 </head>
 
 <body>
+    <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <button id="navbar-logo" class="transparent-no-border">
+                    <img src="<c:url value="/resources/img/index/navbar_logo.png"/>"/>
+                </button>
+            </div>
+            <!-- Collection of nav links and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#slides" class="scroll-to-search">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div id="start">
         <img id="bg-image-landing" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
         <img id="pixsearch-logo" src="<c:url value="/resources/img/index/Startseite_Logo.png"/>"/>
-        <button id="pixsearch-arrow">
+        <a id="pixsearch-arrow" class="scroll-to-search" href="#slides">
             <img src="<c:url value="/resources/img/index/Startseite_Pfeil.png"/>" />
-        </button>
+        </a>
     </div>
 
     <div id="slides">
@@ -100,21 +133,45 @@
         </div>
 
         <img id="pixsearch-logo-upload" src="<c:url value="/resources/img/upload/Seite2_Logo.png"/>">
-        <form action="<c:url value="/upload"/>" class="dropzone" id="image-upload" enctype="multipart/form-data" method="post">
+        <form action="<c:url value="/upload"/>" class="dropzone transparent-no-border" id="image-upload" enctype="multipart/form-data" method="post">
             <div class="dz-default dz-message file-dropzone text-center well col-sm-12" id="costum-dropzone" >
                 <img id="pixsearch-image-upload" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
                 <div class="dropzone-previews"></div>
             </div>
         </form>
 
-        <button id="upload-button">
+        <button id="upload-button" class="transparent-no-border">
             <span>
                 <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
             </span>
         </button>
     </div>
 
-    <div id ="result"/>
+    <div id="result">
+        <img id="bg-image-result" src="<c:url value="/resources/img/index/Startseite_BG.gif"/>" class="img-responsive"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6" id="most-similar-0"></div>
+                <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-4">small</div>
+                            <div class="col-xs-4">small</div>
+                            <div class="col-xs-4">small</div>
+                        </div>
+                    <div class="row">
+                        <div class="col-xs-4">small</div>
+                        <div class="col-xs-4">small</div>
+                        <div class="col-xs-4">small</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">small</div>
+                        <div class="col-xs-4">small</div>
+                        <div class="col-xs-4">small</div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
 </body>
 <!-- jQuery -->
 <script src="<c:url value="/resources/libs/jquery/jquery.js"/>"></script>
@@ -136,11 +193,31 @@
         play: 8000
     });
 
-   $('#pixsearch-arrow').on("click", function() {
-       console.log("slide");
+   $('#navbar-logo').on("click", function() {
         $('html, body').animate({
-            scrollTop: $('#slides').offset().top
+            scrollTop: $('#start').offset().top
         }, 1000);
    });
+
+    $(".scroll-to-search").on('click', function(e) {
+
+        // prevent default anchor click behavior
+        e.preventDefault();
+
+        // store hash
+        var hash = this.hash;
+
+        // animate
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 800, function(){
+
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+        });
+
+    });
+
 </script>
 </html>

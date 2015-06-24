@@ -1,21 +1,19 @@
 $(document).ready(function() {
+
 	$(".file-dropzone").on('dragover', handleDragEnter);
 	$(".file-dropzone").on('dragleave', handleDragLeave);
 	$(".file-dropzone").on('drop', handleDragLeave);
 
 	function handleDragEnter(e) {
-
 		this.classList.add('drag-over');
 	}
 
 	function handleDragLeave(e) {
-
 		this.classList.remove('drag-over');
 	}
 
 	// "dropzoneForm" is the camel-case version of the form id "dropzone-form"
 	Dropzone.options.imageUpload = {
-
 		url : "upload",
 		autoProcessQueue : false,
 		uploadMultiple : false,
@@ -29,11 +27,6 @@ $(document).ready(function() {
 				result.append("<img id=\"img"+ i +"\">");
 				$('#img' + i).attr("src", "/getFile/?src=" + mostSimilar[i]);
 			}
-
-
-			//mostSimilar.forEach(function(status) {
-			//	console.log(status);
-			//});
 		},
 
 		previewsContainer : ".dropzone-previews",
