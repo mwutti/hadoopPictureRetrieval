@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <title>Full Slider - Start Bootstrap Template</title>
     <!-- Bootstrap Core CSS -->
-    <link href="<c:url value="/resources/libs/bootstrap3/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/libs/bootstrap3/css/bootstrap.min.css"/>" rel="stylesheet">
     <!-- Bootstrap Dialog -->
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/libs/bootstrap-dialog/bootstrap-dialog.min.css"/>'>
     <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/style.css"/>'/>
@@ -32,10 +32,6 @@
             margin-top: 0;
             height: 100%;
             width:100%;
-        }
-
-        #result{
-
         }
 
         #pixsearch-logo{
@@ -104,6 +100,21 @@
             padding-bottom: 50px;
             color: white;
         }
+
+        #pixsearch-image-upload {
+            position:relative;
+        }
+
+        #pixsearch-image-preview {
+            position:relative;
+        }
+
+        #reload {
+            position: absolute;
+            left: 50%;
+            margin-top: 50px;
+            transform: translate(-50%);
+        }
     </style>
 </head>
 
@@ -153,7 +164,7 @@
         <form action="<c:url value="/upload"/>" class="dropzone transparent-no-border" id="image-upload" enctype="multipart/form-data" method="post">
             <div class="dz-default dz-message file-dropzone text-center well col-sm-12" id="costum-dropzone" >
                 <img id="pixsearch-image-upload" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
-                <div class="dropzone-previews"></div>
+                <div id="pixsearch-image-preview" class="dropzone-previews"></div>
             </div>
         </form>
 
@@ -206,6 +217,11 @@
             </a>
         </div>
 
+        <button id="reload" type="button" class="btn btn-default btn-large center" onclick="location.href='<c:url value="/"/>'">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> New Search
+        </button>
+
+
     </div>
 
     <%--<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--%>
@@ -236,7 +252,7 @@
 <%--Superslides--%>
 <script src="<c:url value="/resources/libs/jquery/jquery.superslides.js"/>" type="text/javascript" charset="utf-8"></script>
 <!-- Bootstrap Core JavaScript -->
-<script src="<c:url value="/resources/libs/bootstrap3/bootstrap.min.js"/>"></script>
+<script src="<c:url value="/resources/libs/bootstrap3/js/bootstrap.min.js"/>"></script>
 <!-- paralax -->
 <script src="<c:url value="/resources/libs/jquery/jquery.stellar.js"/>"></script>
 <!-- Dropzone.js -->

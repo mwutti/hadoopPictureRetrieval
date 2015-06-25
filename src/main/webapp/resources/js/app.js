@@ -6,18 +6,20 @@ $(document).ready(function() {
 
 	function handleDragEnter(e) {
 		this.classList.add('drag-over');
+		console.log("dragEnter");
 	}
 
 	function handleDragLeave(e) {
 		this.classList.remove('drag-over');
+		console.log("dragLeave");
 	}
 
-	// "dropzoneForm" is the camel-case version of the form id "dropzone-form"
+
 	Dropzone.options.imageUpload = {
 		url : "upload",
 		autoProcessQueue : false,
 		uploadMultiple : false,
-		maxFilesize : 256, // MB
+		maxFilesize : 2, // MB
 		addRemoveLinks : true,
 
 		success : function(response, mostSimilar) {
@@ -44,6 +46,9 @@ $(document).ready(function() {
 		// The setting up of the dropzone
 		init : function() {
 			var myDropzone = this;
+			myDropzone.on("addedfile", function(file) {
+				$("#pixsearch-image-upload").addClass("hidden");
+			});
 
 			// first set autoProcessQueue = false
 			$('#upload-button').on("click", function(e) {
@@ -60,5 +65,7 @@ $(document).ready(function() {
 			});
 		}
 	};
+
+
 
 });
