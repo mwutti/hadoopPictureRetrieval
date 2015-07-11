@@ -87,6 +87,23 @@
             transform: translate(-50%, -50%);
         }
 
+
+        #upload-button-img {
+            background-image: url(/resources/img/upload/Seite2_ButtonGo_Status1.png);
+        }
+
+        #upload-button-img:hover {
+            background-image: url(/resources/img/upload/Seite2_ButtonGo_StatusClick.png);
+        }
+
+        #pixsearch-image-upload {
+            background-image: url(/resources/img/upload/Seite2_Dropzone_Status1.png);
+        }
+
+        #pixsearch-image-upload:hover {
+            background-image: url(/resources/img/upload/Seite2_Dropzone_StatusHoover.png);
+        }
+
         .similar {
             position: relative;
             left: 50%;
@@ -115,13 +132,25 @@
             margin-top: 50px;
             transform: translate(-50%);
         }
+
+        .dz-preview {
+            background: transparent !important;
+        }
+
+        #waiting {
+            width: 1000px;
+        }
+
+        #waiting-text * {
+            color: white;
+        }
+
     </style>
 </head>
 
 <div>
     <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
                     <span class="sr-only">Toggle navigation</span>
@@ -133,7 +162,6 @@
                     <img src="<c:url value="/resources/img/index/navbar_logo.png"/>"/>
                 </button>
             </div>
-            <!-- Collection of nav links and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#slides" class="scroll-to-search">Search</a></li>
@@ -165,12 +193,15 @@
             <div class="dz-default dz-message file-dropzone text-center well col-sm-12" id="costum-dropzone" >
                 <img id="pixsearch-image-upload" src="<c:url value="/resources/img/upload/Seite2_Dropzone_Status1.png"/>">
                 <div id="pixsearch-image-preview" class="dropzone-previews"></div>
+                <div id="waiting">
+                    <h1 id="waiting-text"></h1>
+                </div>
             </div>
         </form>
 
-        <button type="button" data-toggle="modal" data-target="#resultModal" id="upload-button" class="transparent-no-border">
+        <button type="button" data-toggle="modal" data-target="#waitingModal" id="upload-button" class="transparent-no-border">
             <span>
-                <img src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
+                <img id="upload-button-img" src="<c:url value="/resources/img/upload/Seite2_ButtonGo_Status1.png"/>">
             </span>
         </button>
     </div>
@@ -224,7 +255,7 @@
 
     </div>
 
-    <%--<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--%>
+    <%--<div class="modal fade" id="waitingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">--%>
         <%--<div class="modal-dialog" role="document">--%>
             <%--<div class="modal-content">--%>
                 <%--<div class="modal-header">--%>
@@ -232,7 +263,8 @@
                     <%--<h4 class="modal-title" id="myModalLabel">Modal title</h4>--%>
                 <%--</div>--%>
                <%--<div class="modal-body">--%>
-
+                   <%--<span id="spinner" class="glyphicon glyphicon-refresh" aria-hidden="true"></span>--%>
+                   <%--waiting for result--%>
                <%--</div>--%>
 
                 <%--<div class="modal-footer">--%>
@@ -242,7 +274,7 @@
             <%--</div>--%>
         <%--</div>--%>
     <%--</div>--%>
-    </div>
+</div>
 
 </body>
 <!-- jQuery -->

@@ -27,8 +27,8 @@ public class MapReduceServiceImpl implements MapReduceService {
 
     @Override
     public void extractFeatures() throws IOException, InterruptedException {
-        Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/IdeaProjects/hdfs/target/" +
-                "hdfs-1.0-SNAPSHOT.jar at.pixsearch.mapred.PictureMapReduce");
+        Process process = Runtime.getRuntime().exec("hadoop jar /Users/michael/Development/hadoopPictureRetrieval/" +
+                "Mapreduce/target/Mapreduce-1.0-SNAPSHOT.jar pixsearch.mapred.PictureMapReduce");
 
         InputStream in = process.getErrorStream();
         IOUtils.copy(in, System.out);

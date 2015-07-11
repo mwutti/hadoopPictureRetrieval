@@ -32,7 +32,6 @@ public class PictureMapper extends Mapper<NullWritable, BytesWritable, Text, Tex
     public void map(NullWritable key, BytesWritable value, Context context) throws IOException, InterruptedException {
 
         String filePath =  ((FileSplit)context.getInputSplit()).getPath().toString().split("/images/")[1];
-
         Text hFilePath = new Text(filePath);
 
         //Feature extraction
@@ -41,7 +40,7 @@ public class PictureMapper extends Mapper<NullWritable, BytesWritable, Text, Tex
         cedd.extract(ImageIO.read(inputStream));
 
         // Just interested in feature values
-        //substring because of unhandily implementation of CEDD.setStringRepresentation() in Lire Framework
+        //substring because of buggy implementation of CEDD.setStringRepresentation() in Lire Framework
         String feature = cedd.getStringRepresentation().substring(9);
         Text hFeature = new Text(feature);
 

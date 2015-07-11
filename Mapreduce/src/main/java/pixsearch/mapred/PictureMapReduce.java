@@ -17,14 +17,6 @@ public class PictureMapReduce {
     public static void main (String args[]) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration configuration = new Configuration();
 
-//        // this should be like defined in your yarn-site.xml
-//        configuration.set("yarn.resourcemanager.address", "localhost:8088");
-//        // framework is now "yarn", should be defined like this in mapred-site.xm
-//        configuration.set("mapreduce.framework.name", "yarn");
-//        // like defined in hdfs-site.xml
-//        configuration.set("fs.default.name", "hdfs://localhost:50070");
-
-
         Job job = Job.getInstance(configuration, "PictureMapReduce");
         job.setJobName("Feature Extraction");
         job.setJarByClass(PictureMapReduce.class);
